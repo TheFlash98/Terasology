@@ -17,6 +17,7 @@ package org.terasology.config;
 
 public class SelectModulesConfig {
     private boolean isChecked;
+    private String moduleType;
 
     public boolean isChecked() {
         return isChecked;
@@ -24,5 +25,13 @@ public class SelectModulesConfig {
 
     public void setIsChecked(boolean value) {
         this.isChecked = value;
+    }
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
     }
 }

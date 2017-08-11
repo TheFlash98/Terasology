@@ -50,6 +50,7 @@ import org.terasology.rendering.nui.widgets.ResettableUIText;
 import org.terasology.rendering.nui.widgets.TextChangeEventListener;
 import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.UICheckbox;
+import org.terasology.rendering.nui.widgets.UIDropdownScrollable;
 import org.terasology.rendering.nui.widgets.UILabel;
 import org.terasology.rendering.nui.widgets.UIList;
 import org.terasology.world.generator.internal.WorldGeneratorManager;
@@ -95,6 +96,8 @@ public class SelectModulesScreen extends CoreScreenLayer {
     private ModuleListDownloader metaDownloader;
     private UICheckbox localOnlyCheckbox;
     private boolean needsUpdate = true;
+    private UIDropdownScrollable<String> moduleType;
+    ArrayList<String> moduleTypeList = new ArrayList<>();
 
     @Override
     public void onOpened() {
@@ -102,6 +105,10 @@ public class SelectModulesScreen extends CoreScreenLayer {
 
         for (ModuleSelectionInfo info : sortedModules) {
             info.setExplicitSelection(config.getDefaultModSelection().hasModule(info.getMetadata().getId()));
+        }
+
+        if(moduleType!=null){
+            moduleType.setSelection(selectModulesConfig.getModuleType());
         }
 
         refreshSelection();
@@ -377,6 +384,31 @@ public class SelectModulesScreen extends CoreScreenLayer {
                         }
                     }
             );
+
+            moduleType = find("moduleType", UIDropdownScrollable.class);
+            if(moduleType!=null) {
+                moduleType.setVisibleOptions(2);
+                moduleType.bindSelection(new Binding<String>() {
+                    @Override
+                    public String get() {
+                        return selectModulesConfig.getModuleType();
+                    }
+
+                    @Override
+                    public void set(String value) {
+                        selectModulesConfig.setModuleType(value);
+                        logger.info("Here "+value);
+                    }
+                });
+                ArrayList<String> list = new ArrayList<>();
+                list.add("Library");
+                list.add("Asset");
+                list.add("World module");
+                list.add("Augmentation");
+                list.add("Gameplay ");
+                list.add("Special");
+                moduleType.setOptions(list);
+            }
         }
 
         WidgetUtil.trySubscribe(this, "close", button -> triggerBackAnimation());
