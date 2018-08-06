@@ -29,6 +29,7 @@ import org.terasology.engine.modes.loadProcesses.CacheBlocks;
 import org.terasology.engine.modes.loadProcesses.CacheTextures;
 import org.terasology.engine.modes.loadProcesses.CreateRemoteWorldEntity;
 import org.terasology.engine.modes.loadProcesses.CreateWorldEntity;
+import org.terasology.engine.modes.loadProcesses.CreateWorldPools;
 import org.terasology.engine.modes.loadProcesses.EnsureSaveGameConsistency;
 import org.terasology.engine.modes.loadProcesses.InitialiseBlockTypeEntities;
 import org.terasology.engine.modes.loadProcesses.InitialiseCommandSystem;
@@ -169,6 +170,7 @@ public class StateLoading implements GameState {
         loadProcesses.add(new RegisterMods(context, gameManifest));
         loadProcesses.add(new CacheTextures());
         loadProcesses.add(new InitialiseEntitySystem(context));
+        loadProcesses.add(new CreateWorldPools(context, gameManifest));
         loadProcesses.add(new RegisterBlocks(context, gameManifest));
         loadProcesses.add(new RegisterBiomes(context, gameManifest));
         loadProcesses.add(new InitialiseGraphics(context));

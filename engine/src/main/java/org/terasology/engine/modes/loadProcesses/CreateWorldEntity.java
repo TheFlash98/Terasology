@@ -73,7 +73,6 @@ public class CreateWorldEntity extends SingleStepLoadProcess {
             }
         } else {
             EntityRef worldEntity;
-            entityManager.createWorldPools(gameManifest);
             worldEntity = entityManager.create();
             worldEntity.addComponent(new WorldComponent());
             NetworkComponent networkComponent = new NetworkComponent();
